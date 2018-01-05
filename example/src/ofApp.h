@@ -12,16 +12,19 @@ public:
     void draw();
     void mousePressed(int x, int y, int button);
     void start();
+    void overBang();
+    void setTime(int &time);
 		
     
     //Interpolation
     ofxTimedInterpolation timedInterpolation;
-    float ratio;
+    float value;
     bool isWaiting;
     
     
     //Gui
     ofxPanel gui;
     ofxIntSlider time;
-    ofxButton startButton;
+    ofxButton bangButton;
+    ofxButton overBangBtn;
 };

@@ -22,17 +22,19 @@ void ofxTimedInterpolation::setDuration(double _durationMsec) {
     isWaiting = true;
 }
 
+
+
+void ofxTimedInterpolation::getReady() {
+    isWaiting = true;
+    value = 0.0;
+}
+
 void ofxTimedInterpolation::bang() {
     if (isWaiting) {
         isWaiting = false;
         value = 0.0;
         start = system_clock::now();
     }
-}
-
-void ofxTimedInterpolation::getReady() {
-    isWaiting = true;
-    value = 0.0;
 }
 
 void ofxTimedInterpolation::bang(double _durationMsec) {
@@ -43,13 +45,26 @@ void ofxTimedInterpolation::bang(double _durationMsec) {
     }
 }
 
+void ofxTimedInterpolation::overBang() {
+    isWaiting = false;
+    value = 0.0;
+    start = system_clock::now();
+}
+
+void ofxTimedInterpolation::overBang(double _durationMsec) {
+    duration = _durationMsec;
+    isWaiting = false;
+    start = system_clock::now();
+}
+
+
 double ofxTimedInterpolation::getd() {
     double result = 0.0;
     if (isWaiting) {
         result = value;
     } else {
         system_clock::time_point now = system_clock::now();
-        
+
         double elapsed = duration_cast<milliseconds>(now-start).count();
         result = elapsed / duration;
         if (1.0 < result) {
@@ -58,7 +73,7 @@ double ofxTimedInterpolation::getd() {
             isWaiting = true;
         }
     }
-    
+
     return result;
 }
 
@@ -69,7 +84,7 @@ float ofxTimedInterpolation::get() {
         result = value;
     } else {
         system_clock::time_point now = system_clock::now();
-        
+
         float elapsed = duration_cast<milliseconds>(now-start).count();
         result = elapsed / duration;
         if (1.0 < result) {
@@ -78,6 +93,6 @@ float ofxTimedInterpolation::get() {
             isWaiting = true;
         }
     }
-    
+
     return result;
 }
