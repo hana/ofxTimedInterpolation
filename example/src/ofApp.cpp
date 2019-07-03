@@ -6,20 +6,20 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofBackground(255);
     ofSetCircleResolution(60);
-    
-    
+
+
     //Gui
     gui.setup();
-    gui.add(bangButton.setup("bang"));
+    gui.add(bangButton.setup("Bang"));
     bangButton.addListener(this, &ofApp::start);
     gui.add(time.setup("time", 1000, 0, 4000));
     time.addListener(this, &ofApp::setTime);
-    gui.add(overBangBtn.setup("Bang force"));
+    gui.add(overBangBtn.setup("Force bang"));
     overBangBtn.addListener(this, &ofApp::overBang);
-    
+
     //Set duration
     timedInterpolation.setDuration(time);
-    
+
     ofSetColor(0);
 }
 
@@ -31,12 +31,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
+
     //Get current ratio
     ofSetColor(0);
     string text = "Current value : " + ofToString(value);
     ofDrawBitmapString(text, 10, 100);
-    
+
     //Get if its already reached the time
     if(isWaiting) {
         text = "Timer is waiting.";
@@ -46,7 +46,7 @@ void ofApp::draw(){
 
     ofDrawBitmapString(text, 10, 120);
     ofDrawBitmapString("FPS : " + ofToString(ofGetFrameRate()), 10, 140);
-    
+
     //Circle to check
     if(value == 1.0) {
         ofSetColor(0, 255, 0);
@@ -55,7 +55,7 @@ void ofApp::draw(){
     }
     ofDrawCircle(ofGetWidth() *0.5, ofGetHeight()*0.5 , 100);
 
-    
+
     gui.draw();
 }
 
